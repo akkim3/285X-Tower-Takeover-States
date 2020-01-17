@@ -75,11 +75,11 @@ void autonomous() {}
  */
  void trayUp(){
 
-float targetValue;
+float targetValue = 3000;
 float currentValue;
-float kP;
-float kI;
-float kD;
+float  = 0.3;
+float kI = 0 ;
+float kD = 0.01;
 float lastError;
 float totalError=0;
 
@@ -89,8 +89,9 @@ while (true) {
 
 float error = targetValue - currentValue;
 float deriv = error - lastError;
+currentValue = tray.getPosition();
 
-if (error < abs(200) && error != 0) {
+if (error < abs(500) && error != 0) {
 totalError+=error;
 } else {
 	totalError = 0;
@@ -103,6 +104,7 @@ if (pInteg > 50){
 }
 float motorPower = pProp + pDeriv + pInteg;
 /* input for motor velocity = motorPower */
+tray.moveVelocity(motorPower);
 lastError = error;
 pros::delay(20);
 }
