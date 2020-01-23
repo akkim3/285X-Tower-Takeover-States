@@ -128,26 +128,11 @@ void autonomous()
 
 
 void intakeControl(void);
-void trayControl(void);
+void trayBtnControl(void);
 void liftControl(void);
 
 
-void opcontrol()
-{
-	while (1)
-	{
-		// DRIVETRAIN
-		drive->getModel()->arcade(master.getAnalog(ControllerAnalog::leftY),
-														  master.getAnalog(ControllerAnalog::rightX));
-		intakeControl();
-		trayControl();
 
-		liftControl();
-
-		// DELAY
-		pros::delay(10);
-	}
-}
 
 void intakeControl(void)
 {
@@ -162,74 +147,56 @@ void intakeControl(void)
 
 void trayUp()
 {
-	float targetValue = 4700;
-	float currentValue = tray.getPosition();
-	float kP = 5;
-	float motorPower;
-	while (1)
-	{
-		motorPower = kP*(targetValue - currentValue);
-		tray.moveVoltage(motorPower);
-		pros::delay(10);
-		currentValue = tray.getPosition();
-	}
+
+	//var string = param;
+	tray.setBrakeMode(AbstractMotor::brakeMode::hold);
+	//tray.moveVelocity(100);
+	//pros::delay(500);
+	//tray.moveVelocity(20);
+	//pros::delay(2000);
+	//tray.moveVelocity(0);
 
 
-
-	// float targetValue = 3700;
-	// float currentValue;
-	// float kP = 0.1;
-	// float kI = 0.02;
-	// float kD = 0.03;
-	// float lastError;
-	// float totalError=0;
-	//
-	// while (true)
-	// {
-	// 	currentValue = tray.getPosition();
-	// 	float error = targetValue - currentValue;
-	// 	float deriv = error - lastError;
-	//
-	// 	if (error < abs(500) && error != 0)
-	// 		totalError+=error;
-	//
-	// 	else
-	// 		totalError = 0;
-	//
-	// 	float pProp = error * kP;
-	// 	float pDeriv = deriv * kD;
-	// 	float pInteg = totalError * kI;
-	//
-	// 	if (pInteg > 50)
-	// 		pInteg = 50;
-	//
-	// 	float motorPower = pProp + pDeriv + pInteg;
-	// 	/* input for motor velocity = motorPower */
-	// 	tray.moveVelocity(motorPower);
-	// 	lastError = error;
-	// 	pros::delay(20);
-	// }
 }
+bool trayIsUp = false;
+void trayControl(void* trayActive){
+	while(true){
+		if(trayIsUp){
+		tray.moveVelocity(0.07*(4350-tray.getPosition()));
+			}
+	else if(!(trayIsUp)){
+		tray.moveAbsolute(0,200);
+	}
+		std::cout << tray.getPosition();
+		std::cout << (bool*)trayActive;
+		pros::delay(20);
+
+			}
+
+
+}
+
 
 void trayDown(void)
 {
-	while (tray.getPosition() > 0)
-	{
-		tray.moveVelocity(-100);
-	}
+
+		tray.moveAbsolute(0,100);
+
 }
 
-void trayControl(void)
+void trayBtnControl()
 {
   if(trayBtn.changedToPressed())
-	{
-    intakeMotors.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
-    if(trayToggle)
-			trayDown();
-
-    else
-			trayUp();
-  }
+		{
+		trayIsUp = !trayIsUp;
+  	}
+	/*if(trayUpManualBtn.isPressed()){
+		tray.moveVelocity(100);
+	}
+	if(trayDownManualBtn.isPressed()){
+		tray.moveVelocity(-100);
+	}
+	*/
 }
 
 void liftControl(void)
@@ -241,4 +208,22 @@ void liftControl(void)
   else
   	lift.moveVelocity(0);
 
+}
+
+void opcontrol()
+{
+	pros::Task trayTask(trayControl,(void*)"sample","Tray Task");
+
+	while (1)
+	{
+		// DRIVETRAIN
+		drive->getModel()->arcade(master.getAnalog(ControllerAnalog::leftY),
+														  master.getAnalog(ControllerAnalog::rightX));
+		intakeControl();
+		trayBtnControl();
+
+		liftControl();
+		// DELAY
+		pros::delay(20);
+	}
 }

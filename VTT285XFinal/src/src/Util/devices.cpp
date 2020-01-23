@@ -49,6 +49,8 @@ ControllerButton liftDownBtn(ControllerDigital::L2);
 ControllerButton outtakeBtn(ControllerDigital::R1);
 ControllerButton intakeBtn(ControllerDigital::R2);
 ControllerButton trayBtn(ControllerDigital::A);
+ControllerButton trayUpManualBtn(ControllerDigital::up);
+ControllerButton trayDownManualBtn(ControllerDigital::down);
 Controller master;
 
 // Motor Configuration
