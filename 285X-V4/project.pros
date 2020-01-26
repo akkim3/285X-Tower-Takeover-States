@@ -1,11 +1,11 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-        "project_name": "285X-V4",
+        "project_name": "VTT285XFinal",
         "target": "v5",
         "templates": {
             "kernel": {
-                "location": "/Users/akhil/Library/Application Support/PROS/templates/kernel@3.2.0",
+                "location": "/Users/Green4Applez/Library/Application Support/PROS/templates/kernel@3.2.0",
                 "metadata": {
                     "cold_addr": "58720256",
                     "cold_output": "bin/cold.package.bin",
@@ -149,7 +149,7 @@
                 "version": "3.2.0"
             },
             "okapilib": {
-                "location": "/Users/akhil/Library/Application Support/PROS/templates/okapilib@4.0.2",
+                "location": "/Users/Green4Applez/Library/Application Support/PROS/templates/okapilib@4.0.2",
                 "metadata": {
                     "origin": "pros-mainline"
                 },
