@@ -1,5 +1,6 @@
 #include "main.h"
 #include "Util/devices.hpp"
+#include "auton/smallZone.hpp"
 /**
  * A callback function for LLEMU's center button.
  *
@@ -64,116 +65,44 @@ void competition_initialize()
 
 void autonomous()
 {
-	profileController->generatePath(
-	{{0_ft, 0_ft, 0_deg},
-	 {8_ft, 0_ft, 0_deg}},
-	"A");
-
-	profileController->generatePath(
-	{{4_ft, 0_ft, 0_deg},
-	 {8_ft, 0_ft, 0_deg}},
-	"B");
-
-	profileController->generatePath(
-	{{0_in, 24_in, 0_deg},
-	 {24_in, 0_in, 0_deg}},
-	"C");
-
-	profileController->generatePath(
-	{{0_in, 24_in, 0_deg},
-	 {52_in, -24_in, 0_deg}},
-	"D");
-
-	profileController->generatePath(
-	{{24_in, -24_in, 0_deg},
-	 {52_in, -24_in, 0_deg}},
-	"E");
-
-	profileController->generatePath(
-	{{24_in, -24_in, 0_deg},
-	 {24_in, -24_in, 135_deg}},
-	"F");
-
-	intakeMotors.moveVoltage(12000);
-
-	profileController->setTarget("A");
-	profileController->waitUntilSettled();
-	profileController->removePath("A");
-	intakeMotors.moveVoltage(0);
-
-	profileController->setTarget("B", true);
-	profileController->waitUntilSettled();
-	profileController->removePath("B");
-
-	intakeMotors.moveVoltage(12000);
-
-	profileController->setTarget("C", true);
-	profileController->waitUntilSettled();
-	profileController->removePath("C");
-
-	intakeMotors.moveVoltage(0);
-
-	profileController->setTarget("D", true);
-	profileController->waitUntilSettled();
-	profileController->removePath("D");
-
-	profileController->setTarget("E", true);
-	profileController->waitUntilSettled();
-	profileController->removePath("E");
-
-	profileController->setTarget("F");
-	profileController->waitUntilSettled();
-	profileController->removePath("F");
+	redSmall();
 }
-
 
 void intakeControl(void);
 void trayControl(void);
 void liftControl(void);
 
-
 void opcontrol()
+
 {
+	pros::Task trayTask(trayControl,"Tray Task");
+	pros::Task intakeTask(intakeControl,"Intake Task");
+	
 	while (1)
 	{
 		// DRIVETRAIN
-		drive->getModel()->arcade(master.getAnalog(ControllerAnalog::leftY),
-														  master.getAnalog(ControllerAnalog::rightX));
+		drive->getModel()->arcade(master.getAnalog(ControllerAnalog::leftY), master.getAnalog(ControllerAnalog::rightX));
 		intakeControl();
 		trayControl();
-
 		liftControl();
-
 		// DELAY
-		pros::delay(10);
+		pros::delay(20);
 	}
 }
 
 void intakeControl(void)
 {
+	while(true){
 	if(intakeBtn.isPressed())
     intakeMotors.moveVelocity(200);
   else if(outtakeBtn.isPressed())
-    intakeMotors.moveVelocity(-100);
+    intakeMotors.moveVelocity(-200);
   else
     intakeMotors.moveVelocity(0);
+	pros::delay(30);
+	}
 }
 
-
-void trayUp()
-{
-<<<<<<< HEAD:285X-V4/src/src/main.cpp
-
-	//var string = param;
-	tray.setBrakeMode(AbstractMotor::brakeMode::hold);
-	//tray.moveVelocity(100);
-	//pros::delay(500);
-	//tray.moveVelocity(20);
-	//pros::delay(2000);
-	//tray.moveVelocity(0);
-
-
-}
 bool trayIsUp = false;
 void trayControl(void* trayActive){
 	while(true){
@@ -183,7 +112,7 @@ void trayControl(void* trayActive){
 			}
 	else if(!(trayIsUp)){
 		//tray.moveAbsolute(0,200);
-		while(tray.getPosition() > 0
+		while(tray.getPosition() > 0)
 			tray.moveVelocity(-100);
 			intakeMotors.moveVelocity(-50);
 			drive->moveDistance(-1_ft);
@@ -195,115 +124,23 @@ void trayControl(void* trayActive){
 		std::cout << tray.getPosition();
 		std::cout << (bool*)trayActive;
 		pros::delay(20);
-			}
-=======
-	float targetValue = 4700;
-	float currentValue = tray.getPosition();
-	float kP = 5;
-	float motorPower;
-	while (1)
-	{
-		motorPower = kP*(targetValue - currentValue);
-		tray.moveVoltage(motorPower);
-		pros::delay(10);
-		currentValue = tray.getPosition();
 	}
-
->>>>>>> parent of ea238a2... Finalized Automatic Tray Control:VTT285XFinal/src/src/main.cpp
-
-
-	// float targetValue = 3700;
-	// float currentValue;
-	// float kP = 0.1;
-	// float kI = 0.02;
-	// float kD = 0.03;
-	// float lastError;
-	// float totalError=0;
-	//
-	// while (true)
-	// {
-	// 	currentValue = tray.getPosition();
-	// 	float error = targetValue - currentValue;
-	// 	float deriv = error - lastError;
-	//
-	// 	if (error < abs(500) && error != 0)
-	// 		totalError+=error;
-	//
-	// 	else
-	// 		totalError = 0;
-	//
-	// 	float pProp = error * kP;
-	// 	float pDeriv = deriv * kD;
-	// 	float pInteg = totalError * kI;
-	//
-	// 	if (pInteg > 50)
-	// 		pInteg = 50;
-	//
-	// 	float motorPower = pProp + pDeriv + pInteg;
-	// 	/* input for motor velocity = motorPower */
-	// 	tray.moveVelocity(motorPower);
-	// 	lastError = error;
-	// 	pros::delay(20);
-	// }
-}
-
-void trayDown(void)
-{
-<<<<<<< HEAD:285X-V4/src/src/main.cpp
-		tray.moveAbsolute(0,100);
-=======
-	while (tray.getPosition() > 0)
-	{
-		tray.moveVelocity(-100);
-	}
->>>>>>> parent of ea238a2... Finalized Automatic Tray Control:VTT285XFinal/src/src/main.cpp
-}
 
 void trayControl(void)
 {
   if(trayBtn.changedToPressed())
-<<<<<<< HEAD:285X-V4/src/src/main.cpp
 		{
 		trayIsUp = !trayIsUp;
-  	}
-=======
-	{
-    intakeMotors.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
-    if(trayToggle)
-			trayDown();
-
-    else
-			trayUp();
-  }
->>>>>>> parent of ea238a2... Finalized Automatic Tray Control:VTT285XFinal/src/src/main.cpp
+  		}
 }
 
 void liftControl(void)
 {
-	if(liftUpBtn.isPressed())
-  	lift.moveVelocity(100);
-  else if(liftDownBtn.isPressed())
-     lift.moveVelocity(-90);
-  else
-  	lift.moveVelocity(0);
+if(liftUpBtn.isPressed()){
+  	lift.moveVelocity(100);}
+  else if(liftDownBtn.isPressed()){
+     lift.moveVelocity(-90);}
+  else{
+  	lift.moveVelocity(0);}
 }
-<<<<<<< HEAD:285X-V4/src/src/main.cpp
 
-void opcontrol()
-{
-	pros::Task trayTask(trayControl,(void*)"sample","Tray Task");
-
-	while (1)
-	{
-		// DRIVETRAIN
-		drive->getModel()->arcade(master.getAnalog(ControllerAnalog::leftY),
-														  master.getAnalog(ControllerAnalog::rightX));
-		intakeControl();
-		trayBtnControl();
-		liftControl();
-		// DELAY
-		pros::delay(20);
-	}
-}
-=======
->>>>>>> parent of ea238a2... Finalized Automatic Tray Control:VTT285XFinal/src/src/main.cpp
