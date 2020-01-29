@@ -5,8 +5,6 @@ extern okapi::Controller master;
 extern okapi::ControllerButton intakeBtn;
 extern okapi::ControllerButton outtakeBtn;
 extern okapi::ControllerButton trayBtn;
-extern okapi::ControllerButton trayUpManualBtn;
-extern okapi::ControllerButton trayDownManualBtn;
 extern okapi::ControllerButton liftUpBtn;
 extern okapi::ControllerButton liftDownBtn;
 
