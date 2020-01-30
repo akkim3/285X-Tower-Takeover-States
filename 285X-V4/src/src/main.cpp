@@ -69,9 +69,9 @@ void autonomous()
 }
 
 void intakeControl(void);
-void trayControl(void);
+void trayBtnControl(void);
 void liftControl(void);
-
+void trayControl();
 void opcontrol()
 
 {
@@ -83,7 +83,7 @@ void opcontrol()
 		// DRIVETRAIN
 		drive->getModel()->arcade(master.getAnalog(ControllerAnalog::leftY), master.getAnalog(ControllerAnalog::rightX));
 		intakeControl();
-		trayControl();
+		trayBtnControl();
 		liftControl();
 		// DELAY
 		pros::delay(20);
@@ -104,29 +104,31 @@ void intakeControl(void)
 }
 
 bool trayIsUp = false;
-void trayControl(void* trayActive){
+void trayControl(void){
 	while(true){
 		if(trayIsUp){
-			intakeMotors.setBrakeMode(AbstractMotor::brakeMode::coast);
-			tray.moveVelocity(0.05*(600-tray.getPosition())); //Need to Tune Again (Probably way higher than 600)
+			tray.moveAbsolute(100,100);
+			//tray.moveVelocity(0.05*(600-tray.getPosition())); //Need to Tune Again (Probably way higher than 600)
 			}
 	else if(!(trayIsUp)){
+					intakeMotors.setBrakeMode(AbstractMotor::brakeMode::coast);
+
 		//tray.moveAbsolute(0,200);
-		while(tray.getPosition() > 0)
-			tray.moveVelocity(-100);
-			intakeMotors.moveVelocity(-50);
-			drive->moveDistance(-1_ft);
+		while(tray.getPosition() > 0){
+			//tray.moveVelocity(-100);
+			//intakeMotors.moveVelocity(-50);
+			//drive->moveDistance(-1_ft);
 				}
-		tray.moveVelocity(0);
+		//tray.moveVelocity(0);
 		intakeMotors.moveVelocity(0);
 		intakeMotors.setBrakeMode(AbstractMotor::brakeMode::hold);
 	}
 		std::cout << tray.getPosition();
-		std::cout << (bool*)trayActive;
-		pros::delay(20);
-	}
 
-void trayControl(void)
+		pros::delay(20);
+	}}
+
+void trayBtnControl(void)
 {
   if(trayBtn.changedToPressed())
 		{
