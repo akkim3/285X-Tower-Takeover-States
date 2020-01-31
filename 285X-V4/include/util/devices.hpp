@@ -7,6 +7,7 @@ extern okapi::ControllerButton outtakeBtn;
 extern okapi::ControllerButton trayBtn;
 extern okapi::ControllerButton liftUpBtn;
 extern okapi::ControllerButton liftDownBtn;
+extern okapi::ControllerButton outtakeMacroBtn;
 
 //Motors
 extern okapi::MotorGroup intakeMotors;

@@ -68,81 +68,104 @@ void autonomous()
 	redSmall();
 }
 
+
 void intakeControl(void);
 void trayBtnControl(void);
 void liftControl(void);
-void trayControl();
-void opcontrol()
 
+
+
+
+void intakeControl(void)
 {
-	pros::Task trayTask(trayControl,"Tray Task");
-	pros::Task intakeTask(intakeControl,"Intake Task");
-	
+	if(intakeBtn.isPressed())
+    intakeMotors.moveVelocity(200);
+  else if(outtakeBtn.isPressed())
+    intakeMotors.moveVelocity(-100);
+  else
+    intakeMotors.moveVelocity(0);
+}
+
+
+void trayUp()
+{
+
+	//var string = param;
+	tray.setBrakeMode(AbstractMotor::brakeMode::hold);
+	//tray.moveVelocity(100);
+	//pros::delay(500);
+	//tray.moveVelocity(20);
+	//pros::delay(2000);
+	//tray.moveVelocity(0);
+
+
+}
+bool trayIsUp = false;
+void trayControl(void* trayActive){
+	while(true){
+		if(trayIsUp){
+		tray.moveVelocity(0.07*(4350-tray.getPosition()));
+			}
+	else if(!(trayIsUp)){
+		tray.moveAbsolute(0,200);
+	}
+		std::cout << tray.getPosition();
+		std::cout << (bool*)trayActive;
+		pros::delay(20);
+
+			}
+
+
+}
+
+
+void trayDown(void)
+{
+
+		tray.moveAbsolute(0,100);
+
+}
+
+void trayBtnControl()
+{
+  if(trayBtn.changedToPressed())
+		{
+		trayIsUp = !trayIsUp;
+  	}
+	/*if(trayUpManualBtn.isPressed()){
+		tray.moveVelocity(100);
+	}
+	if(trayDownManualBtn.isPressed()){
+		tray.moveVelocity(-100);
+	}
+	*/
+}
+
+void liftControl(void)
+{
+	if(liftUpBtn.isPressed())
+  	lift.moveVelocity(100);
+  else if(liftDownBtn.isPressed())
+     lift.moveVelocity(-90);
+  else
+  	lift.moveVelocity(0);
+
+}
+
+void opcontrol()
+{
+	pros::Task trayTask(trayControl,(void*)"sample","Tray Task");
+
 	while (1)
 	{
 		// DRIVETRAIN
-		drive->getModel()->arcade(master.getAnalog(ControllerAnalog::leftY), master.getAnalog(ControllerAnalog::rightX));
+		drive->getModel()->arcade(master.getAnalog(ControllerAnalog::leftY),
+														  master.getAnalog(ControllerAnalog::rightX));
 		intakeControl();
 		trayBtnControl();
+
 		liftControl();
 		// DELAY
 		pros::delay(20);
 	}
 }
-
-void intakeControl(void)
-{
-	while(true){
-	if(intakeBtn.isPressed())
-    intakeMotors.moveVelocity(200);
-  else if(outtakeBtn.isPressed())
-    intakeMotors.moveVelocity(-200);
-  else
-    intakeMotors.moveVelocity(0);
-	pros::delay(30);
-	}
-}
-
-bool trayIsUp = false;
-void trayControl(void){
-	while(true){
-		if(trayIsUp){
-			tray.moveAbsolute(100,100);
-			//tray.moveVelocity(0.05*(600-tray.getPosition())); //Need to Tune Again (Probably way higher than 600)
-			}
-	else if(!(trayIsUp)){
-					intakeMotors.setBrakeMode(AbstractMotor::brakeMode::coast);
-
-		//tray.moveAbsolute(0,200);
-		while(tray.getPosition() > 0){
-			//tray.moveVelocity(-100);
-			//intakeMotors.moveVelocity(-50);
-			//drive->moveDistance(-1_ft);
-				}
-		//tray.moveVelocity(0);
-		intakeMotors.moveVelocity(0);
-		intakeMotors.setBrakeMode(AbstractMotor::brakeMode::hold);
-	}
-		std::cout << tray.getPosition();
-
-		pros::delay(20);
-	}}
-
-void trayBtnControl(void)
-{
-  if(trayBtn.changedToPressed())
-		{
-		trayIsUp = !trayIsUp;
-  		}
-}
-
-void liftControl(void)
-{
-if(liftUpBtn.isPressed()){
-  	lift.moveVelocity(100);}
-  else if(liftDownBtn.isPressed()){
-     lift.moveVelocity(-90);}
-  else{
-  	lift.moveVelocity(0);}
-}
-

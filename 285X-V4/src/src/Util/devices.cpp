@@ -49,11 +49,13 @@ ControllerButton liftDownBtn(ControllerDigital::L2);
 ControllerButton outtakeBtn(ControllerDigital::R1);
 ControllerButton intakeBtn(ControllerDigital::R2);
 ControllerButton trayBtn(ControllerDigital::A);
+ControllerButton outtakeMacroBtn(ControllerDigital::B);
+
 Controller master;
 
 // Motor Configuration
 okapi::MotorGroup intakeMotors({-3, 7});
 okapi::Motor lift(2, false, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
-okapi::Motor tray(21, false, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
+okapi::Motor tray(21);
 
 bool trayToggle = false;
