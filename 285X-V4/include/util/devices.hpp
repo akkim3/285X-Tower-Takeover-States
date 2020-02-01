@@ -21,3 +21,5 @@ extern std::shared_ptr<okapi::ChassisModel> chassisModel;
 extern std::shared_ptr<okapi::AsyncMotionProfileController> profileController;
 
 extern bool trayToggle;
+
+void outtakeMacro();

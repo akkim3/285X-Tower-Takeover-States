@@ -107,20 +107,17 @@ void trayControl(void* trayActive){
 		tray.moveVelocity(0.07*(4350-tray.getPosition()));
 			}
 	else if(!(trayIsUp)){
-		tray.moveAbsolute(0,200);
-	}
-		std::cout << tray.getPosition();
+		outtakeMacro();
 		std::cout << (bool*)trayActive;
 		pros::delay(20);
 
 			}
 
 
-}
+}}
 
 
-void trayDown(void)
-{
+void trayDown(void){
 
 		tray.moveAbsolute(0,100);
 

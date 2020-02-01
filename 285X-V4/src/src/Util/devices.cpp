@@ -55,7 +55,15 @@ Controller master;
 
 // Motor Configuration
 okapi::MotorGroup intakeMotors({-3, 7});
-okapi::Motor lift(2, false, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
+okapi::Motor lift(2, true, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
 okapi::Motor tray(21);
 
 bool trayToggle = false;
+
+void outtakeMacro(){
+    tray.moveAbsolute(0,200);
+		drive->moveDistanceAsync(-1_ft);
+		intakeMotors.moveVelocity(-50);
+
+
+};
