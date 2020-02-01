@@ -107,7 +107,8 @@ void trayControl(void* trayActive){
 		tray.moveVelocity(0.07*(4350-tray.getPosition()));
 			}
 	else if(!(trayIsUp)){
-		outtakeMacro();
+		//outtakeMacro();
+		tray.moveAbsolute(0,100);
 		std::cout << (bool*)trayActive;
 		pros::delay(20);
 
@@ -160,7 +161,9 @@ void opcontrol()
 														  master.getAnalog(ControllerAnalog::rightX));
 		intakeControl();
 		trayBtnControl();
-
+	if(outtakeMacroBtn.changedToPressed()){
+		outtakeMacro();
+	}
 		liftControl();
 		// DELAY
 		pros::delay(20);
