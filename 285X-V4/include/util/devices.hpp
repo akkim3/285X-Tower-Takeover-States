@@ -7,7 +7,6 @@ extern okapi::ControllerButton outtakeBtn;
 extern okapi::ControllerButton trayBtn;
 extern okapi::ControllerButton liftUpBtn;
 extern okapi::ControllerButton liftDownBtn;
-extern okapi::ControllerButton outtakeMacroBtn;
 
 //Motors
 extern okapi::MotorGroup intakeMotors;
@@ -21,5 +20,7 @@ extern std::shared_ptr<okapi::ChassisModel> chassisModel;
 extern std::shared_ptr<okapi::AsyncMotionProfileController> profileController;
 
 extern bool trayToggle;
+extern bool trayIsUp;
 
 void outtakeMacro();
+void trayControl();

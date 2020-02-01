@@ -28,6 +28,8 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 
 	pros::lcd::register_btn1_cb(on_center_button);
+		pros::Task trayTask(trayControl,"Tray Task");
+
 }
 
 /**
@@ -73,9 +75,6 @@ void intakeControl(void);
 void trayBtnControl(void);
 void liftControl(void);
 
-
-
-
 void intakeControl(void)
 {
 	if(intakeBtn.isPressed())
@@ -100,25 +99,10 @@ void trayUp()
 
 
 }
-bool trayIsUp = false;
-void trayControl(void* trayActive){
-	while(true){
-		if(trayIsUp){
-		tray.moveVelocity(0.07*(4350-tray.getPosition()));
-			}
-	else if(!(trayIsUp)){
-		//outtakeMacro();
-		tray.moveAbsolute(0,100);
-		std::cout << (bool*)trayActive;
-		pros::delay(20);
-
-			}
 
 
-}}
-
-
-void trayDown(void){
+void trayDown(void)
+{
 
 		tray.moveAbsolute(0,100);
 
@@ -152,7 +136,6 @@ void liftControl(void)
 
 void opcontrol()
 {
-	pros::Task trayTask(trayControl,(void*)"sample","Tray Task");
 
 	while (1)
 	{
@@ -161,9 +144,7 @@ void opcontrol()
 														  master.getAnalog(ControllerAnalog::rightX));
 		intakeControl();
 		trayBtnControl();
-	if(outtakeMacroBtn.changedToPressed()){
-		outtakeMacro();
-	}
+
 		liftControl();
 		// DELAY
 		pros::delay(20);
