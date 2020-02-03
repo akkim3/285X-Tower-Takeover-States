@@ -1,5 +1,6 @@
 #include "main.h"
 #include "Util/devices.hpp"
+#include "auton/smallZone.hpp"
 /**
  * A callback function for LLEMU's center button.
  *
@@ -27,6 +28,8 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 
 	pros::lcd::register_btn1_cb(on_center_button);
+		pros::Task trayTask(trayControl,"Tray Task");
+
 }
 
 /**
@@ -64,75 +67,13 @@ void competition_initialize()
 
 void autonomous()
 {
-	profileController->generatePath(
-	{{0_ft, 0_ft, 0_deg},
-	 {8_ft, 0_ft, 0_deg}},
-	"A");
-
-	profileController->generatePath(
-	{{4_ft, 0_ft, 0_deg},
-	 {8_ft, 0_ft, 0_deg}},
-	"B");
-
-	profileController->generatePath(
-	{{0_in, 24_in, 0_deg},
-	 {24_in, 0_in, 0_deg}},
-	"C");
-
-	profileController->generatePath(
-	{{0_in, 24_in, 0_deg},
-	 {52_in, -24_in, 0_deg}},
-	"D");
-
-	profileController->generatePath(
-	{{24_in, -24_in, 0_deg},
-	 {52_in, -24_in, 0_deg}},
-	"E");
-
-	profileController->generatePath(
-	{{24_in, -24_in, 0_deg},
-	 {24_in, -24_in, 135_deg}},
-	"F");
-
-	intakeMotors.moveVoltage(12000);
-
-	profileController->setTarget("A");
-	profileController->waitUntilSettled();
-	profileController->removePath("A");
-	intakeMotors.moveVoltage(0);
-
-	profileController->setTarget("B", true);
-	profileController->waitUntilSettled();
-	profileController->removePath("B");
-
-	intakeMotors.moveVoltage(12000);
-
-	profileController->setTarget("C", true);
-	profileController->waitUntilSettled();
-	profileController->removePath("C");
-
-	intakeMotors.moveVoltage(0);
-
-	profileController->setTarget("D", true);
-	profileController->waitUntilSettled();
-	profileController->removePath("D");
-
-	profileController->setTarget("E", true);
-	profileController->waitUntilSettled();
-	profileController->removePath("E");
-
-	profileController->setTarget("F");
-	profileController->waitUntilSettled();
-	profileController->removePath("F");
+	redSmall();
 }
 
 
 void intakeControl(void);
 void trayBtnControl(void);
 void liftControl(void);
-
-
-
 
 void intakeControl(void)
 {
@@ -158,23 +99,6 @@ void trayUp()
 
 
 }
-bool trayIsUp = false;
-void trayControl(void* trayActive){
-	while(true){
-		if(trayIsUp){
-		tray.moveVelocity(0.07*(4350-tray.getPosition()));
-			}
-	else if(!(trayIsUp)){
-		tray.moveAbsolute(0,200);
-	}
-		std::cout << tray.getPosition();
-		std::cout << (bool*)trayActive;
-		pros::delay(20);
-
-			}
-
-
-}
 
 
 void trayDown(void)
@@ -190,6 +114,9 @@ void trayBtnControl()
 		{
 		trayIsUp = !trayIsUp;
   	}
+	if(outtakeBtn.changedToPressed()){
+		outtakeMacro();
+	}
 	/*if(trayUpManualBtn.isPressed()){
 		tray.moveVelocity(100);
 	}
@@ -212,7 +139,6 @@ void liftControl(void)
 
 void opcontrol()
 {
-	pros::Task trayTask(trayControl,(void*)"sample","Tray Task");
 
 	while (1)
 	{

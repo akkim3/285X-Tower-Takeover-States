@@ -57,7 +57,7 @@ okapi::Motor lift(2, true, okapi::AbstractMotor::gearset::red, okapi::AbstractMo
 okapi::Motor tray(21);
 
 bool trayToggle = false;
-
+bool trayIsUp = false;
 
 
 void outtakeMacro(){
@@ -66,4 +66,17 @@ void outtakeMacro(){
 		intakeMotors.moveVelocity(-50);
 };
 
+void trayControl(void){
+	while(true){
+		if(trayIsUp){
+		tray.moveVelocity(0.07*(4350-tray.getPosition()));
+			}
+	else if(!(trayIsUp)){
+		tray.moveAbsolute(0,200);
+	}
+		std::cout << tray.getPosition();
+		pros::delay(20);
+
+			}
+}
 
