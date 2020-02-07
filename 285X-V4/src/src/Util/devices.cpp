@@ -67,8 +67,8 @@ void outtakeMacro(){
   pros::delay(100);
   drive->setMaxVelocity(50);
   drive->moveDistance(-1_ft);
-  drive->setMaxVelocity(100);
-  intakeMotors.moveVelocity(100);
+  drive->setMaxVelocity(200);
+  //intakeMotors.moveVelocity(100);
 };
 
 void trayControl(void){
