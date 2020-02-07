@@ -7,7 +7,12 @@ void deploy(){
 	pros::delay(500);
 	intakeMotors.moveVelocity(0);
 }
-
+void oneCube(){
+  deploy();
+  drive->setMaxVelocity(100);
+  drive->moveDistance(-1_ft);
+  drive->moveDistance(2_ft);
+}
 void redSmall(){
 	deploy();
  //SMALL SCORING ZONE ---------
