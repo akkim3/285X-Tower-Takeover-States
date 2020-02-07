@@ -49,6 +49,8 @@ ControllerButton liftDownBtn(ControllerDigital::L2);
 ControllerButton outtakeBtn(ControllerDigital::R1);
 ControllerButton intakeBtn(ControllerDigital::R2);
 ControllerButton trayBtn(ControllerDigital::A);
+ControllerButton outtakeMacroBtn(ControllerDigital::B);
+ControllerButton trayDeployBtn(ControllerDigital::X);
 Controller master;
 
 // Motor Configuration
@@ -57,13 +59,28 @@ okapi::Motor lift(2, true, okapi::AbstractMotor::gearset::red, okapi::AbstractMo
 okapi::Motor tray(21);
 
 bool trayToggle = false;
-
+bool trayIsUp = false;
 
 
 void outtakeMacro(){
-    tray.moveAbsolute(0,200);
-		drive->moveDistanceAsync(-1_ft);
-		intakeMotors.moveVelocity(-50);
+  intakeMotors.moveVelocity(-75);
+  pros::delay(100);
+  drive->setMaxVelocity(50);
+  drive->moveDistance(-1_ft);
+  drive->setMaxVelocity(200);
+  //intakeMotors.moveVelocity(100);
 };
 
+void trayControl(void){
+	while(true){
+		if(trayIsUp){
+		tray.moveVelocity(0.07*(4350-tray.getPosition()));
+			}
+	else if(!(trayIsUp)){
+		tray.moveAbsolute(0,200);
+	}
+		std::cout << tray.getPosition();
+		pros::delay(20);
 
+			}
+}
