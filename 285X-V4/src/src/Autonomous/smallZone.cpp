@@ -64,7 +64,7 @@ void redSmall(){
     tray.moveAbsolute(100,100);
     tray.moveAbsolute(0, 100);
 //Tune this value
-intakeMotors.moveRelative(-100,200);
+outtakeToScore();
 //DEPLOY THE STACK
 	trayIsUp = true;
 	pros::delay(3000);

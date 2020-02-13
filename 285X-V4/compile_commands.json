@@ -5,15 +5,12 @@
             "-c",
             "-target",
             "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/include/c++/9.2.1",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/include/c++/9.2.1/arm-none-eabi",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/include/c++/9.2.1/backward",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/include-fixed",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
             "-iquote./include/src/",
             "-mcpu=cortex-a9",
@@ -31,10 +28,10 @@
             "--std=gnu++17",
             "-o",
             "bin/src/main.cpp.o",
-            "src\\src\\main.cpp"
+            "src/src/main.cpp"
         ],
-        "directory": "C:\\Users\\Citru\\Documents\\Outtake\\285X-Tower-Takeover-States-experimental-tray\\285X-V4",
-        "file": "src\\src\\main.cpp"
+        "directory": "/Users/akhil/Documents/GitHub/285X-Tower-Takeover-States/285X-V4",
+        "file": "src/src/main.cpp"
     },
     {
         "arguments": [
@@ -42,15 +39,12 @@
             "-c",
             "-target",
             "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/include/c++/9.2.1",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/include/c++/9.2.1/arm-none-eabi",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/include/c++/9.2.1/backward",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/include-fixed",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
             "-iquote./include/src/Autonomous/",
             "-mcpu=cortex-a9",
@@ -68,10 +62,10 @@
             "--std=gnu++17",
             "-o",
             "bin/src/Autonomous/smallZone.cpp.o",
-            "src\\src\\Autonomous\\smallZone.cpp"
+            "src/src/Autonomous/smallZone.cpp"
         ],
-        "directory": "C:\\Users\\Citru\\Documents\\Outtake\\285X-Tower-Takeover-States-experimental-tray\\285X-V4",
-        "file": "src\\src\\Autonomous\\smallZone.cpp"
+        "directory": "/Users/akhil/Documents/GitHub/285X-Tower-Takeover-States/285X-V4",
+        "file": "src/src/Autonomous/smallZone.cpp"
     },
     {
         "arguments": [
@@ -79,15 +73,12 @@
             "-c",
             "-target",
             "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\citru\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/include/c++/9.2.1",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/include/c++/9.2.1/arm-none-eabi",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/include/c++/9.2.1/backward",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/include-fixed",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2019-q4-major/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
             "-iquote./include/src/Util/",
             "-mcpu=cortex-a9",
@@ -105,9 +96,9 @@
             "--std=gnu++17",
             "-o",
             "bin/src/Util/devices.cpp.o",
-            "src\\src\\Util\\devices.cpp"
+            "src/src/Util/devices.cpp"
         ],
-        "directory": "C:\\Users\\Citru\\Documents\\Outtake\\285X-Tower-Takeover-States-experimental-tray\\285X-V4",
-        "file": "src\\src\\Util\\devices.cpp"
+        "directory": "/Users/akhil/Documents/GitHub/285X-Tower-Takeover-States/285X-V4",
+        "file": "src/src/Util/devices.cpp"
     }
 ]

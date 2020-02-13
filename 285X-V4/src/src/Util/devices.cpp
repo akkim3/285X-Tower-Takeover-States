@@ -58,6 +58,10 @@ okapi::MotorGroup intakeMotors({-3, 7});
 okapi::Motor lift(2, true, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
 okapi::Motor tray(21);
 
+//Sensors
+pros::ADILineSensor lineSensor = pros::ADILineSensor('A');
+
+
 bool trayToggle = false;
 bool trayIsUp = false;
 
@@ -83,4 +87,12 @@ void trayControl(void){
 		pros::delay(20);
 
 			}
+}
+void outtakeToScore(){
+ while(lineSensor.get_value_calibrated() > 2000) {
+    std::cout << lineSensor.get_value() << std::endl;
+  intakeMotors.moveVelocity(-60);
+    pros::delay(50);
+  }
+  intakeMotors.moveVelocity(0);
 }

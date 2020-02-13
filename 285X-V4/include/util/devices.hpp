@@ -23,6 +23,7 @@ extern std::shared_ptr<okapi::AsyncMotionProfileController> profileController;
 
 extern bool trayToggle;
 extern bool trayIsUp;
-
+extern pros::ADILineSensor lineSensor;
+void outtakeToScore();
 void outtakeMacro();
 void trayControl();
