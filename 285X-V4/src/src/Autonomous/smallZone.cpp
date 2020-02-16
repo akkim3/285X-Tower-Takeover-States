@@ -3,9 +3,12 @@
 #include "auton/smallZone.hpp"
 
 void deploy(){
-	intakeMotors.moveVelocity(-200);
+	lift.moveAbsolute(100,100);
+	// intakeMotors.moveVelocity(-200);
 	pros::delay(500);
 	intakeMotors.moveVelocity(0);
+	lift.moveAbsolute(0,100);
+
 }
 void oneCube(){
   deploy();
@@ -19,64 +22,82 @@ void redSmall(){
     profileController->generatePath(
     {{0_ft, 0_ft, 0_deg},
      {8_ft, 0_ft, 0_deg}},
-    "A");
+    "eight_feet");
 
     profileController->generatePath(
     {{0_ft, 0_ft, 0_deg},
      {4_ft, 0_ft, 0_deg}},
-    "B");
+    "four_feet");
+
+		profileController->generatePath(
+    {{0_ft, 0_ft, 0_deg},
+     {7_ft, 0_ft, 0_deg}},
+    "sevenhalf_feet");
 
     profileController->generatePath(
     {{0_in, 48_in, 0_deg},
      {-48_in, 0_in, 0_deg}},
     "C");
 
-    intakeMotors.moveVoltage(12000);
+    intakeMotors.moveVelocity(200);
 
-    profileController->setTarget("A");
-    profileController->waitUntilSettled();
-    // profileController->removePath("A");
-    intakeMotors.moveVoltage(0);
+    profileController->setTarget("eight_feet");
 
-    profileController->setTarget("B", true);
     profileController->waitUntilSettled();
-    // profileController->removePath("B");
+    // profileController->removePath("eight_feet");
+    //intakeMotors.moveVoltage(12000);
 
-    profileController->setTarget("C", true);
+    profileController->setTarget("four_feet", true);
     profileController->waitUntilSettled();
+    // profileController->removePath("four_feet");
+
+    //profileController->setTarget("C", true);
+    //profileController->waitUntilSettled();
     // profileController->removePath("C");
 
-    intakeMotors.moveVoltage(12000);
+    //intakeMotors.moveVoltage(12000);
 
-    profileController->setTarget("A");
-    profileController->waitUntilSettled();
+    //profileController->setTarget("eight_feet");
+    //profileController->waitUntilSettled();
 
-    intakeMotors.moveVoltage(0);
 
-    profileController->setTarget("B", true);
-    profileController->waitUntilSettled();
+    intakeMotors.moveVelocity(0);
+
+  //  profileController->setTarget("four_feet", true);
+    //profileController->waitUntilSettled();
 
   drive->turnAngle(135_deg);
+		drive->setMaxVelocity(70);
+    drive->moveDistance(1.5_ft);
+    //profileController->waitUntilSettled();
+		drive->setMaxVelocity(200);
+		drive->waitUntilSettled();
+				intakeMotors.moveVelocity(0);
+	//	intakeMotors.moveVoltage(-6000);
+		//pros::delay(500);
+		//intakeMotors.moveVoltage(0);
 
-    profileController->setTarget("B");
-    profileController->waitUntilSettled();
 
-    tray.moveAbsolute(100,100);
-    tray.moveAbsolute(0, 100);
+
+    //tray.moveAbsolute(100,100);
+    //tray.moveAbsolute(0, 100);
 //Tune this value
-outtakeToScore();
+//outtakeToScore();
+intakeMotors.moveVelocity(-200);
+pros::delay(300);
+intakeMotors.moveVelocity(0);
 //DEPLOY THE STACK
 	trayIsUp = true;
 	pros::delay(3000);
 	outtakeMacro();
 
-    profileController->setTarget("B", true);
+    profileController->setTarget("eight_feet", true);
     profileController->waitUntilSettled();
 }
 
 void blueSmall(){
 
-	
+
 }
 
 void redLarge(){
@@ -85,12 +106,12 @@ deploy();
 profileController->generatePath(
     {{0_ft, 0_ft, 0_deg},
      {6_ft, 0_ft, 0_deg}},
-    "A");
+    "eight_feet");
 
     profileController->generatePath(
     {{0_ft, 0_ft, 0_deg},
      {4_ft, 0_ft, 0_deg}},
-    "B");
+    "four_feet");
 
     profileController->generatePath(
     {{0_in, 0_in, 0_deg},
@@ -99,16 +120,16 @@ profileController->generatePath(
 
     intakeMotors.moveVoltage(12000);
 
-    profileController->setTarget("A");
+    profileController->setTarget("eight_feet");
     profileController->waitUntilSettled();
-    profileController->removePath("A");
+    profileController->removePath("eight_feet");
 
-    profileController->setTarget("B", true);
+    profileController->setTarget("four_feet", true);
     profileController->waitUntilSettled();
 
     drive->turnAngle(-90_deg);
 
-    profileController->setTarget("B");
+    profileController->setTarget("four_feet");
     profileController->waitUntilSettled();
 
   drive->turnAngle(-45_deg);
@@ -122,9 +143,8 @@ profileController->generatePath(
 	trayIsUp = true;
 	pros::delay(3000);
 	outtakeMacro();
-	
+
     profileController->setTarget("C", true);
     profileController->waitUntilSettled();
 
 }
-
