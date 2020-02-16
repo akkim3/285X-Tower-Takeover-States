@@ -54,8 +54,8 @@ ControllerButton trayDeployBtn(ControllerDigital::X);
 Controller master;
 
 // Motor Configuration
-okapi::MotorGroup intakeMotors({-3, 7});
-okapi::Motor lift(2, true, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
+okapi::MotorGroup intakeMotors({8, -7});
+okapi::Motor lift(9, true, okapi::AbstractMotor::gearset::red, okapi::AbstractMotor::encoderUnits::degrees);
 okapi::Motor tray(21);
 
 //Sensors
@@ -68,7 +68,7 @@ bool trayIsUp = false;
 
 void outtakeMacro(){
   intakeMotors.moveVelocity(-75);
-  pros::delay(100);
+  pros::delay(300);
   drive->setMaxVelocity(50);
   drive->moveDistance(-1_ft);
   drive->setMaxVelocity(200);
@@ -79,9 +79,11 @@ void trayControl(void){
 	while(true){
 		if(trayIsUp){
 		tray.moveVelocity(0.07*(4350-tray.getPosition()));
+    intakeMotors.setBrakeMode(AbstractMotor::brakeMode::coast);
 			}
 	else if(!(trayIsUp)){
-		tray.moveAbsolute(0,200);
+		tray.moveAbsolute(0,100);
+    intakeMotors.setBrakeMode(AbstractMotor::brakeMode::hold);
 	}
 		std::cout << tray.getPosition();
 		pros::delay(20);
@@ -91,7 +93,7 @@ void trayControl(void){
 void outtakeToScore(){
  while(lineSensor.get_value_calibrated() > 2000) {
     std::cout << lineSensor.get_value() << std::endl;
-  intakeMotors.moveVelocity(-60);
+  intakeMotors.moveVelocity(-50);
     pros::delay(50);
   }
   intakeMotors.moveVelocity(0);

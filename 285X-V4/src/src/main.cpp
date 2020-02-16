@@ -81,8 +81,13 @@ void intakeControl(void)
     intakeMotors.moveVelocity(200);
   else if(outtakeBtn.isPressed())
     intakeMotors.moveVelocity(-100);
+	else if(intakeBtn.isPressed() && outtakeBtn.isPressed()){
+		intakeMotors.moveVelocity(-200);
+	}
   else
     intakeMotors.moveVelocity(0);
+		intakeMotors.setBrakeMode(AbstractMotor::brakeMode::hold);
+
 }
 
 
@@ -143,6 +148,7 @@ void liftControl(void)
      lift.moveVelocity(-90);
   else
   	lift.moveVelocity(0);
+		lift.setBrakeMode(AbstractMotor::brakeMode::hold);
 
 }
 
