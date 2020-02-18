@@ -20,10 +20,12 @@ extern std::shared_ptr<okapi::ChassisController> drive;
 extern std::shared_ptr<okapi::OdomChassisController> odomChassis;
 extern std::shared_ptr<okapi::ChassisModel> chassisModel;
 extern std::shared_ptr<okapi::AsyncMotionProfileController> profileController;
-
+//extern std::shared_ptr<okapi::AsyncPositionController<double,double>> liftController;
 extern bool trayToggle;
 extern bool trayIsUp;
+extern bool liftUpBool;
 extern pros::ADILineSensor lineSensor;
 void outtakeToScore();
 void outtakeMacro();
 void trayControl();
+void liftUp();
