@@ -20,7 +20,7 @@
 //okapi::AbstractMotor::GearRatioPair pair(okapi::AbstractMotor::gearset::red, 0.2);
 //auto liftControllerIntegrated = AsyncPosIntegratedController(lift, pair,100,okapi::TimeUtilFactory::createDefault());
 const int heightCount = 3;
-const int heights[heightCount] = {0, 1000,2000};
+const int heights[heightCount] = {0,400,1800};
 int heightIndex = 0;
 
 void initialize() {
@@ -30,6 +30,11 @@ void initialize() {
 
 	pros::Task trayTask(trayControl,"Tray Task");
 	//pros::Task liftUpTask(liftUp,"Lift Up");
+	profileController->generatePath(
+			{{0_ft, 0_ft, 0_deg},
+			 {0.5_ft, 0_ft, 0_deg}},
+			"nudge");
+	imuSensor.reset();
 
 }
 
@@ -51,7 +56,7 @@ void disabled() {}
  */
 void competition_initialize()
 {
-
+imuSensor.reset();
 }
 
 /**
@@ -68,7 +73,22 @@ void competition_initialize()
 
 void autonomous()
 {
-	redSmall();
+	drive->setMaxVelocity(100);
+	profileController->setTarget("nudge");
+//	intakeMotors.moveVelocity(-200);
+	pros::delay(250);
+	liftController->setTarget(heights[1]);
+	liftController->waitUntilSettled();
+	profileController->setTarget("nudge",true);
+	liftController->setTarget(heights[0]);
+	intakeMotors.moveVelocity(200);
+	liftController->waitUntilSettled();
+	//drive->waitUntilSettled();
+	//drive->moveDistance(-0.5_ft);
+	drive->setMaxVelocity(200);
+
+blueLarge();
+
 }
 
 
@@ -81,7 +101,7 @@ void intakeControl(void)
 	if(intakeBtn.isPressed())
     intakeMotors.moveVelocity(200);
   else if(outtakeBtn.isPressed())
-    intakeMotors.moveVelocity(-100);
+    intakeMotors.moveVelocity(-200);
 	else if(intakeBtn.isPressed() && outtakeBtn.isPressed()){
 		intakeMotors.moveVelocity(-200);
 	}
@@ -122,6 +142,7 @@ void trayBtnControl()
   	}
 	if(outtakeMacroBtn.changedToPressed())
 	{
+		//turn(45);
 		outtakeMacro();
 	}
 	/*if(trayUpManualBtn.isPressed()){
@@ -144,21 +165,25 @@ void trayDeploy() {
 void liftControl(void)
 {
 
-	if(liftUpBtn.changedToPressed() && heightIndex < heightCount - 1){
-		//liftUpBool = true;
-		heightIndex = heightIndex + 1;
-		liftController->setTarget(heights[heightIndex]);
-		if(heightIndex == 1){
-		intakeMotors.moveVelocity(-100);
-		pros::delay(500);
-		intakeMotors.moveVelocity(0);
-	}
-	}
-else if(liftDownBtn.changedToPressed() && heightIndex > 0){
-		heightIndex = heightIndex - 1;
-		liftController->setTarget(heights[heightIndex]);
-		 //liftUpBool = false;
+
+
+
+if(liftUpBtn.isPressed()){
+
+	lift.moveVelocity(200);
+} else if(liftDownBtn.isPressed()){
+	lift.moveVelocity(-200);
+} else if(upArrow.isPressed()){
+	intakeMotors.moveVelocity(-25);
+	lift.moveAbsolute(400,200);
+	//intakeMotors.moveRelative(-360,200);
 }
+	else {
+	lift.setBrakeMode(AbstractMotor::brakeMode::hold);
+	lift.moveVelocity(0);
+
+}
+
 }
 
 void opcontrol()

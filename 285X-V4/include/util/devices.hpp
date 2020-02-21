@@ -7,11 +7,16 @@ extern okapi::ControllerButton outtakeBtn;
 extern okapi::ControllerButton trayBtn;
 extern okapi::ControllerButton liftUpBtn;
 extern okapi::ControllerButton liftDownBtn;
+extern okapi::ControllerButton downArrow;
+extern okapi::ControllerButton upArrow;
+
 extern okapi::ControllerButton outtakeMacroBtn;
 extern okapi::ControllerButton trayDeployBtn;
 
 //Motors
 extern okapi::MotorGroup intakeMotors;
+extern okapi::MotorGroup driveL;
+extern okapi::MotorGroup driveR;
 extern okapi::Motor lift;
 extern okapi::Motor tray;
 
@@ -25,7 +30,9 @@ extern bool trayToggle;
 extern bool trayIsUp;
 extern bool liftUpBool;
 extern pros::ADILineSensor lineSensor;
+extern pros::Imu imuSensor;
 void outtakeToScore();
 void outtakeMacro();
 void trayControl();
 void liftUp();
+void turn(double);
